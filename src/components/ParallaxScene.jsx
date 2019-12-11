@@ -34,7 +34,7 @@ const ParallaxScene = ({ ...props }) => {
         .fill(0)
         .map((_, i) => (
           <div
-            data-depth={Math.random() * 3}
+            data-depth={Math.random()}
             css={{ height: "100%", width: "100%" }}
           >
             <div
@@ -44,7 +44,9 @@ const ParallaxScene = ({ ...props }) => {
                 height: 10 * i,
                 top: Math.random() * 100 + "%",
                 right: Math.random() * 100 + "%",
-                backgroundColor: "#34f9",
+                backgroundColor: `rgba(${[0, 0, 0].map(_ =>
+                  Math.floor(Math.random() * 256)
+                )}, ${Math.random()})`,
                 animation: `${anim} ${Math.max(
                   Math.random() * 100,
                   10
@@ -57,7 +59,7 @@ const ParallaxScene = ({ ...props }) => {
         .fill(0)
         .map((_, i) => (
           <div
-            data-depth={Math.random() * 3}
+            data-depth={Math.random()}
             css={{ height: "100%", width: "100%" }}
           >
             <div
@@ -67,7 +69,9 @@ const ParallaxScene = ({ ...props }) => {
                 height: 10 * i,
                 top: Math.random() * 100 + "%",
                 right: Math.random() * 100 + "%",
-                backgroundColor: "#acd9",
+                backgroundColor: `rgba(${[0, 0, 0].map(_ =>
+                  Math.floor(Math.random() * 256)
+                )}, ${Math.random()})`,
                 animation: `${anim} ${Math.max(
                   Math.random() * 100,
                   10
