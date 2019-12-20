@@ -8,6 +8,7 @@ import SEO from "../components/seo"
 import Img from "gatsby-image"
 import ImBox from "../components/LoadingImage"
 import ParallaxScene from "../components/ParallaxScene"
+import { SliderNavs } from "../components/SliderNavs"
 
 const IndexPage = () => {
   const data = useStaticQuery(graphql`
@@ -26,6 +27,7 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
+      <SliderNavs></SliderNavs>
       <ParallaxScene />
       <div
         css={{
