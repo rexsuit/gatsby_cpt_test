@@ -1,13 +1,14 @@
 import React from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
 /** @jsx jsx */
-import { jsx } from "@emotion/core"
+import { jsx } from "theme-ui"
 
+import { Link, useStaticQuery, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import Img from "gatsby-image"
 import ImBox from "../components/LoadingImage"
-import ParallaxScene from "../components/ParallaxScene"
+import ParallaxMouse from "../components/ParallaxMouse"
+import ParallaxScroll from "../components/ParallaxScroll"
 import { SliderNavs } from "../components/SliderNavs"
 
 const IndexPage = () => {
@@ -27,8 +28,11 @@ const IndexPage = () => {
   return (
     <Layout>
       <SEO title="Home" />
-      <SliderNavs></SliderNavs>
-      <ParallaxScene />
+      <ParallaxScroll />
+      <ParallaxScroll />
+      <ParallaxScroll />
+      <SliderNavs />
+      <ParallaxMouse />
       <div
         css={{
           maxWidth: 960,

@@ -3,7 +3,7 @@ import React from "react"
 import { jsx, keyframes } from "@emotion/core"
 import Parallax from "parallax-js"
 
-const ParallaxScene = ({ ...props }) => {
+const ParallaxMouse = ({ ...props }) => {
   const sceneRef = React.useRef()
 
   React.useEffect(() => {
@@ -34,6 +34,7 @@ const ParallaxScene = ({ ...props }) => {
         .fill(0)
         .map((_, i) => (
           <div
+            key={i}
             data-depth={Math.random()}
             css={{
               height: "100%",
@@ -63,6 +64,7 @@ const ParallaxScene = ({ ...props }) => {
         .fill(0)
         .map((_, i) => (
           <div
+            key={i}
             data-depth={Math.random()}
             css={{
               height: "100%",
@@ -92,4 +94,4 @@ const ParallaxScene = ({ ...props }) => {
   )
 }
 
-export default ParallaxScene
+export default ParallaxMouse

@@ -19,7 +19,7 @@ const ImBox = ({ index, ...props }) => {
   `)
 
   const [ref, inView] = useInView({ threshold: 0.5 })
-  console.log({ index }, { inView })
+  // console.log({ index }, { inView })
   const animDur = `0.3s`
   const [loaded, setLoaded] = React.useState(false)
   return (
