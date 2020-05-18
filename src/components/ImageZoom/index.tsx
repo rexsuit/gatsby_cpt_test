@@ -20,8 +20,15 @@ const clamp = (val, min, max) => Math.max(Math.min(val, max), min)
 
 let zIndex = 1
 
-const Image = ({ left, top, id, ...props }) => {
-  const [hover, hoverSet] = React.useState(false)
+const Image = ({
+  interact,
+  fluid,
+  ...props
+}: {
+  interact: Function
+  fluid: any
+}) => {
+  const [dragging, draggingSet] = React.useState(false)
   const outer = React.useRef<HTMLDivElement>(null)
   const inner = React.useRef<HTMLDivElement>(null)
   const dragPosPrev = React.useRef({ x: 0, y: 0 })
@@ -36,6 +43,8 @@ const Image = ({ left, top, id, ...props }) => {
 
   const onDragStart = () => {
     dragPosPrev.current = { x: 0, y: 0 }
+    draggingSet(true)
+    interact()
   }
   const onDragMove = (event, pointer, moveVector) => {
     // console.log({ moveVector })
@@ -48,6 +57,7 @@ const Image = ({ left, top, id, ...props }) => {
   const onPointerUp = () => {
     innerScaleCurr.current = 1
     outerScaleCurr.current = 1
+    draggingSet(false)
   }
 
   const overflowVal = 70
@@ -60,19 +70,6 @@ const Image = ({ left, top, id, ...props }) => {
           innerScalePrev.current
         }, ${innerScalePrev.current}, 1) rotate3d(1,1,1,0.1deg)`)
       : null
-
-    console.log(
-      'outerScale ',
-      outerScaleCurr.current,
-      ', innerScale ',
-      innerScaleCurr.current,
-    )
-    console.log(
-      'outerScale 2',
-      outerScalePrev.current,
-      ', innerScale 2',
-      innerScalePrev.current,
-    )
 
     // The draggable element transform
     outer.current
@@ -151,10 +148,10 @@ const Image = ({ left, top, id, ...props }) => {
       sx={{
         overflow: 'hidden',
         border: '1px solid lightgrey',
-        cursor: hover ? 'grabbing' : 'grab',
-        zIndex: 2,
+        cursor: dragging ? 'grabbing' : 'grab',
         width: 300,
         bg: 'red',
+        zIndex: dragging ? 3 : 2,
       }}
       ref={outer}
     >
@@ -169,7 +166,7 @@ const Image = ({ left, top, id, ...props }) => {
         }}
         ref={inner}
       >
-        <Img {...props} sx={{ pointerEvents: 'none' }} />
+        <Img fluid={fluid} {...props} sx={{ pointerEvents: 'none' }} />
       </animated.div>
     </div>
   )
@@ -195,29 +192,18 @@ const ImageZoom = () => {
     }
   `)
 
-  const [boxes, setBoxes] = React.useState<{
-    [key: string]: {
-      top: number
-      left: number
-      title: string
-    }
-  }>({
-    a: { top: 20, left: 80, title: 'Drag me around' },
-    b: { top: 200, left: 180, title: 'Drag me around' },
-  })
+  const boxes = Array(2).fill(0)
+  const [topEl, topElSet] = React.useState(0)
 
   return (
     <div>
       <div sx={{ height: 500, position: 'relative' }}>
-        {Object.keys(boxes).map((key, i) => {
-          const { left, top, title } = boxes[key]
+        {boxes.map((key, i) => {
           return (
-            <div key={i} sx={{ maxWidth: 300 }}>
+            <div key={i} sx={{ maxWidth: 300, zIndex: topEl === i ? 3 : 2 }}>
               <Image
                 fluid={data.placeholderImage.childImageSharp.fluid}
-                left={left}
-                top={top}
-                id={key}
+                interact={() => topElSet(i)}
               />
             </div>
           )
